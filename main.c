@@ -31,24 +31,25 @@ int		get_fork_nb(t_philo *philo, int type)
 
 }
 
-// size_t	get_time(struct timeval *tv)
-// {
-// 	gettimeofday(tv, NULL);
-// 	return ((tv->tv_sec) * 1000 + (tv->tv_usec / 1000));
-//}
-
 size_t	get__time()
 {
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return (((tv.tv_sec) * 1000 + (tv.tv_usec / 1000)));
+	return (((tv.tv_sec) * 10000 + (tv.tv_usec / 100)));
 }
-//1639942275431
+
 void	mutex_print(char *str, t_philo *philo)
 {
+	size_t def;
+	static size_t g_time;
+
+	if (g_time == 0)
+		g_time = get__time();
+	def = get__time() - g_time;
 	pthread_mutex_lock(philo->print);
-	printf(str, get__time(), philo->id);
+	printf(str, def, philo->id);
+	g_time = get__time();
 	pthread_mutex_unlock(philo->print);
 }
 
@@ -65,18 +66,12 @@ void	*death_thread(void *ptr)
 	finished = 0;
 	while (1)
 	{
-		//&& philos[i].nbr_eat != philos->info->nbr_time_to_eat
-		//
-		//printf("%d\n", philos[i].is_eating);
-		if ((get__time() - philos[i].time)*1000 > philos->info->time_to_die
+		if ((get__time() - philos[i].time)*10000> philos->info->time_to_die
 			&& philos[i].is_eating == 0)
 		{
 			mutex_print("%lums %d died\n", &philos[i]);
 			pthread_mutex_unlock(philos->death);
-			//exit(1);
-		}//else{
-			//printf("%lu <> %lu\n", (get_time(&tv) - philos[i].time)*1000, philos->info->time_to_die);
-		//}
+		}
 		if (philos[i].nbr_eat != (unsigned int)-1 && 
 		philos[i].nbr_eat == philos->info->nbr_time_to_eat)
 		{
@@ -84,11 +79,8 @@ void	*death_thread(void *ptr)
 			finished++;
 		}
 		if (finished == philos->info->nb_philo)
-		{
 			pthread_mutex_unlock(philos->death);
-			//exit(0);
-		}
-		usleep(75);
+		usleep(50);
 		i = (i + 1) % nb_philo;
 	}
 }
@@ -104,10 +96,8 @@ void	*f(void *ptr)
 	{
 		pthread_mutex_lock(&(philo->mutex[get_fork_nb(philo, 0)]));
 		mutex_print("%lums %d has taken a fork\n", philo);
-		//printf("%lums %d has taken a fork %d\n",get__time(), philo->id, get_fork_nb(philo, 0));
 		pthread_mutex_lock(&(philo->mutex[get_fork_nb(philo, -1)]));
 		mutex_print("%lums %d is eating\n", philo);
-		//printf("%lums %d has taken a fork (%d)\n",get__time(), philo->id, get_fork_nb(philo, -1));
 		philo->is_eating = 1;
 		philo->time = get__time();
 		usleep(philo->info->time_to_eat);
@@ -127,9 +117,9 @@ void	*f(void *ptr)
 void	args_int(t_philo_info *info,int ac, char **av)
 {
 	info->nb_philo = atoi(av[1]);
-	info->time_to_die = atoi(av[2]) * 1000;
-	info->time_to_eat = atoi(av[3]) * 1000;
-	info->time_to_sleep = atoi(av[4]) * 1000;
+	info->time_to_die = atoi(av[2]) * 10000;
+	info->time_to_eat = atoi(av[3]) * 10000;
+	info->time_to_sleep = atoi(av[4]) * 10000;
 	info->nbr_time_to_eat = -1;
 	if (ac == 6)
 		info->nbr_time_to_eat = atoi(av[5]);
@@ -175,7 +165,7 @@ int main(int ac, char **av)
 	t_philo_info 	info;
 
 	if (!(ac == 6 || ac == 5))
-		return (1);
+		printf("Error\n");
 	args_int(&info,ac, av);
 	mutex = malloc(sizeof(pthread_mutex_t) * info.nb_philo);
 	philos = malloc(sizeof(t_philo) * info.nb_philo);
