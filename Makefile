@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+         #
+#    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/18 13:55:55 by mbel-bas          #+#    #+#              #
-#    Updated: 2021/12/21 09:13:51 by mbel-bas         ###   ########.fr        #
+#    Updated: 2021/12/21 22:11:13 by aben-ham         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CFILES = main.c threads.c philo_utils.c
 
-BFILES = 
+BFILES = main.c utils.c
 
 CC = gcc
 
@@ -31,6 +31,9 @@ RM = rm -rf
 
 all:
 	$(CC) $(CFLAGS) $(CFILES) -I $(INCLUDE) -o $(NAME)
+
+bonus:
+	$(CC) $(CFLAGS) $(BFILES) -I $(INCLUDE) -o $(NAME)
 
 clean:
 	$(RM) *.o
