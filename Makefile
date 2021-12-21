@@ -6,11 +6,11 @@
 #    By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/18 13:55:55 by mbel-bas          #+#    #+#              #
-#    Updated: 2021/12/19 09:43:48 by mbel-bas         ###   ########.fr        #
+#    Updated: 2021/12/21 09:13:51 by mbel-bas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFILES = main.c philo_utils.c 
+CFILES = main.c threads.c philo_utils.c
 
 BFILES = 
 
@@ -20,7 +20,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 INCLUDE = philo.h 
 
-OFILES = $(CFILES:.c=.o)
+OFILES = philo
+
+NAME = philo
 
 OFILES_B =$(BFILES:.c=.o) 
 
@@ -28,12 +30,12 @@ RM = rm -rf
 
 
 all:
-	$(CC) $(CFLAGS) $(CFILES) -I $(INCLUDE) -o philo
+	$(CC) $(CFLAGS) $(CFILES) -I $(INCLUDE) -o $(NAME)
 
 clean:
-	$(RM) $(OFILES) $(OFILES_B)
+	$(RM) *.o
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) philo
 
 re: fclean all

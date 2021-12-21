@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/18 13:16:32 by mbel-bas          #+#    #+#             */
-/*   Updated: 2021/12/20 16:42:45 by aben-ham         ###   ########.fr       */
+/*   Created: 2021/12/18 13:55:55 by mbel-bas          #+#    #+#             */
+/*   Updated: 2021/12/21 11:45:49 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <math.h>
 # include <unistd.h>
 # include <sys/time.h>
-# include "libft/libft.h"
 
 typedef struct s_philo_info
 {
@@ -46,5 +45,10 @@ void	is_finished(t_philo *philos, int i, unsigned int *f);
 void	*death_thread(void *ptr);
 void	*f(void *ptr);
 void	*philo_threads(t_philo *philos);
+void	mutex_print(char *str, t_philo *philo);
+int		args_int(t_philo_info *info, int ac, char **av);
+t_philo	*init_philos(t_philo_info *info);
+size_t	get_time(void);
+int		ft_atoi(const char *str);
 
 #endif

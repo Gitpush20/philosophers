@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/20 16:39:11 by aben-ham          #+#    #+#             */
-/*   Updated: 2021/12/20 16:40:56 by aben-ham         ###   ########.fr       */
+/*   Created: 2021/12/18 13:55:55 by mbel-bas          #+#    #+#             */
+/*   Updated: 2021/12/20 20:49:24 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	*death_thread(void *ptr)
 		if ((get_time() - philos[i].time) * 1000 > philos->info->time_to_die
 			&& philos[i].is_eating == 0)
 		{
-			mutex_print("%lums %d died\n", &philos[i]);
+			mutex_print("%lu ms %d died\n", &philos[i]);
 			pthread_mutex_unlock(philos->info->death);
 		}
 		is_finished(philos, i, &finished);
@@ -72,9 +72,9 @@ void	*f(void *ptr)
 	while (1)
 	{
 		pthread_mutex_lock(&(philo->mutex[get_fork_nb(philo, 0)]));
-		mutex_print("%lums %d has taken a fork\n", philo);
+		mutex_print("%lu ms %d has taken a fork\n", philo);
 		pthread_mutex_lock(&(philo->mutex[get_fork_nb(philo, -1)]));
-		mutex_print("%lums %d is eating\n", philo);
+		mutex_print("%lu ms %d is eating\n", philo);
 		philo->is_eating = 1;
 		philo->time = get_time();
 		usleep(philo->info->time_to_eat);
@@ -84,9 +84,9 @@ void	*f(void *ptr)
 		pthread_mutex_unlock(&(philo->mutex[get_fork_nb(philo, 0)]));
 		if (philo->nbr_eat == philo->info->nbr_time_to_eat)
 			return (NULL);
-		mutex_print("%lums %d is sleeping\n", philo);
+		mutex_print("%lu ms %d is sleeping\n", philo);
 		usleep(philo->info->time_to_sleep);
-		mutex_print("%lums %d is thinking\n", philo);
+		mutex_print("%lu ms %d is thinking\n", philo);
 	}
 	return (NULL);
 }
