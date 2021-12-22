@@ -3,42 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/12/18 13:55:55 by mbel-bas          #+#    #+#              #
-#    Updated: 2021/12/21 22:11:13 by aben-ham         ###   ########.fr        #
+#    Created: 2021/12/22 10:42:40 by mbel-bas          #+#    #+#              #
+#    Updated: 2021/12/22 11:39:38 by mbel-bas         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CFILES = main.c threads.c philo_utils.c
+SRC = main_bonus.c utils_bonus.c philantropist.c
+NAME = philo_bonus
+FLAG = -Wall -Wextra -Werror
 
-BFILES = main.c utils.c
+all : $(NAME)
 
-CC = gcc
-
-CFLAGS = -Wall -Wextra -Werror
-
-INCLUDE = philo.h 
-
-OFILES = philo
-
-NAME = philo
-
-OFILES_B =$(BFILES:.c=.o) 
-
-RM = rm -rf
-
-
-all:
-	$(CC) $(CFLAGS) $(CFILES) -I $(INCLUDE) -o $(NAME)
-
-bonus:
-	$(CC) $(CFLAGS) $(BFILES) -I $(INCLUDE) -o $(NAME)
-
+$(NAME): $(SRC)
+	@gcc $(FLAG) $(SRC) -o $(NAME) 
 clean:
-	$(RM) *.o
-
+	@rm -rf $(NAME)
 fclean: clean
-	$(RM) philo
-
-re: fclean all
+re : fclean all
+.PHONY: all clean fclean re

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-ham <aben-ham@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mbel-bas <mbel-bas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 19:26:36 by mbel-bas          #+#    #+#             */
-/*   Updated: 2021/12/21 19:44:55 by aben-ham         ###   ########.fr       */
+/*   Updated: 2021/12/22 12:32:33 by mbel-bas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
 static int	signe(size_t n)
 {
@@ -18,6 +18,7 @@ static int	signe(size_t n)
 		return (0);
 	return (-1);
 }
+
 size_t	get_time(void)
 {
 	struct timeval	tv;
